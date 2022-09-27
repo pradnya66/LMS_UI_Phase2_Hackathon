@@ -1,7 +1,9 @@
 
 	package actions;
 
-	import org.openqa.selenium.By;
+	import java.util.List;
+
+import org.openqa.selenium.By;
 	import org.openqa.selenium.WebDriver;
 	import org.openqa.selenium.WebElement;
 //import org.openqa.selenium.remote.RemoteWebDriver;
@@ -12,11 +14,12 @@
 			public void scrollByVisibilityOfElement(WebDriver driver, WebElement ele);
 			public void click(By by, WebDriver driver);
 //			public boolean isDisplayed(By by, ThreadLocal<RemoteWebDriver> driver);
-			public void type(By by , WebDriver driver, String text);
-			public boolean findElement(WebDriver driver, WebElement ele);
+			public boolean type(By by , WebDriver driver, String text);
+			public boolean findElement(By by,WebDriver driver);
+			public  List<WebElement> findElements(By by, WebDriver driver);
 //			public boolean isSelected(By by, ThreadLocal<RemoteWebDriver> driver);
-//			public boolean isEnabled(By by, ThreadLocal<RemoteWebDriver> driver);
-			public boolean selectBySendkeys(String value,WebElement ele);
+			public boolean isEnabled(By by, WebDriver driver);
+			public boolean selectBySendkeys(String value,By by);
 			public boolean selectByIndex(WebElement element, int index);
 			public boolean selectByValue(WebElement element,String value);
 			public boolean selectByVisibleText(String visibletext, WebElement ele);
@@ -43,15 +46,17 @@
 			public boolean isAlertPresent(WebDriver driver);
 			public String getCurrentURL(WebDriver driver);
 			public String getTitle(WebDriver driver);
-			public String getText(WebElement element); // i edit
+			public String getText(By by,WebDriver driver); // i edit
 			public boolean click1(WebElement locator, String locatorName);
 			public void fluentWait(WebDriver driver,WebElement element, int timeOut);
 			public void implicitWait(WebDriver driver, int timeOut);
 			public void explicitWait(WebDriver driver, WebElement element, int timeOut);
 			public void pageLoadTimeOut(WebDriver driver, int timeOut);
-			public String screenShot(WebDriver driver, String filename);
+			public void screenShot(WebDriver driver, String filename);
 			public byte[] screenShotAllure(WebDriver driver);
 			public String getCurrentTime();
+			public void clear(By by, WebDriver driver);
+			public String getPlaceholderAttribute(By by, WebDriver driver);
 
 
 	}

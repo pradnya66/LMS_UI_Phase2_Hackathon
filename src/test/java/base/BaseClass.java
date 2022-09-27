@@ -1,6 +1,7 @@
 package base;
 
 import java.util.Properties;
+
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -20,18 +21,18 @@ public class BaseClass  {
 		WebDriver driver;
 		
 		System.out.println("browser is... "+ browser);
-		WebDriverManager.chromedriver().setup();
-		WebDriverManager.edgedriver().setup();
-			
 		System.out.println("In Launch brower method");
 				 
 		if(browser.equalsIgnoreCase("Edge")){
+			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 		}
 		else if(browser.equalsIgnoreCase("Chrome")) {
+			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 		}
 			else {
+		
 			driver = new FirefoxDriver();
 		}
 		

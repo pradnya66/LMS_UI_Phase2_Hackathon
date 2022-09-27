@@ -15,6 +15,7 @@ public class ConfigReader {
 	
 		System.out.println("executing LoadProperties.....");
 		try {
+			
 			prop = new Properties();
 			System.out.println(System.getProperty("user.dir") + "//src//test//resources//Configuration//config.properties");
 

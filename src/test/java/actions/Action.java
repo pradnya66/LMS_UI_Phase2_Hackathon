@@ -19,7 +19,7 @@ package actions;
 	import org.openqa.selenium.WebElement;
 	import org.openqa.selenium.interactions.Actions;
 //import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+	import org.openqa.selenium.support.ui.ExpectedConditions;
 	import org.openqa.selenium.support.ui.FluentWait;
 	import org.openqa.selenium.support.ui.Select;
 	import org.openqa.selenium.support.ui.Wait;
@@ -43,7 +43,33 @@ import base.TestContext;
 			act.moveToElement(driver.findElement(by)).click().build().perform();
 
 		}
-		public boolean findElement(WebDriver driver, WebElement ele) {
+		
+		public void click(WebElement ele, WebDriver driver) {
+
+			Actions act = new Actions(driver);
+			act.moveToElement(ele).click().build().perform();
+
+		}
+		public boolean findElement( By by,WebDriver driver) {
+			boolean flag = false;
+			try {
+				driver.findElement(by).isDisplayed();
+				flag = true;
+			} catch (Exception e) {
+				// System.out.println("Location not found: "+locatorName);
+				flag = false;
+			} finally {
+				if (flag) {
+					System.out.println("Successfully Found element at");
+
+				} else {
+					System.out.println("Unable to locate element at");
+				}
+			}
+			return flag;
+		}
+
+		public boolean findElement(WebElement ele, WebDriver driver) {
 			boolean flag = false;
 			try {
 				ele.isDisplayed();
@@ -61,31 +87,12 @@ import base.TestContext;
 			}
 			return flag;
 		}
-
-//		public boolean findElement(By by, WebDriver driver) {
-//			boolean flag = false;
-//			try {
-//				driver.findElement(by).isDisplayed();
-//				flag = true;
-//			} catch (Exception e) {
-//				// System.out.println("Location not found: "+locatorName);
-//				flag = false;
-//			} finally {
-//				if (flag) {
-//					System.out.println("Successfully Found element at");
-//
-//				} else {
-//					System.out.println("Unable to locate element at");
-//				}
-//			}
-//			return flag;
-//		}
 		
-		public boolean isDisplayed(WebDriver driver, WebElement ele) {
+		public boolean isDisplayed(By by, WebDriver driver) {
 			boolean flag = false;
-			flag = findElement(driver, ele);
+			flag = findElement(by,driver);
 			if (flag) {
-				flag = ele.isDisplayed();
+				flag =  driver.findElement(by).isDisplayed();
 				if (flag) {
 					System.out.println("The element is Displayed");
 				} else {
@@ -96,57 +103,73 @@ import base.TestContext;
 			}
 			return flag;
 		}
-
-//		
-//		public boolean isDisplayed(By by, WebDriver driver) {
-//			boolean flag = false;
-//			flag = findElement(driver.,driver);
-//			if (flag) {
-//				flag = ((WebDriver) driver).findElement(by).isDisplayed();
-//				if (flag) {
-//					System.out.println("The element is Displayed");
-//				} else {
-//					System.out.println("The element is not Displayed");
-//				}
-//			} else {
-//				System.out.println("Not displayed ");
-//			}
-//			return flag;
-//		}
+		
 
 		
-//		public boolean isSelected(By by, ThreadLocal<RemoteWebDriver> driver) {
-//			boolean flag = false;
-//			flag = findElement(driver, ((WebDriver) driver).findElement(by));
-//			if (flag) {
-//				flag = ((WebDriver) driver).findElement(by).isSelected();
-//				if (flag) {
-//					System.out.println("The element is Selected");
-//				} else {
-//					System.out.println("The element is not Selected");
-//				}
-//			} else {
-//				System.out.println("Not selected ");
-//			}
-//			return flag;
-//		}
+		public boolean isSelected(By by, WebDriver driver) {
+			boolean flag = false;
+			flag = findElement(by,driver);
+			if (flag) {
+				flag = ((WebDriver) driver).findElement(by).isSelected();
+				if (flag) {
+					System.out.println("The element is Selected");
+				} else {
+					System.out.println("The element is not Selected");
+				}
+			} else {
+				System.out.println("Not selected ");
+			}
+			return flag;
+		}
+		
+		public boolean isSelected(WebElement ele, WebDriver driver) {
+			boolean flag = false;
+			flag = findElement(ele,driver);
+			if (flag) {
+				flag = (ele.isSelected());
+				if (flag) {
+					System.out.println("The element is Selected");
+				} else {
+					System.out.println("The element is not Selected");
+				}
+			} else {
+				System.out.println("Not selected ");
+			}
+			return flag;
+		}
 
 		
-//		public boolean isEnabled(By by, ThreadLocal<RemoteWebDriver> driver) {
-//			boolean flag = false;
-//			flag = findElement(driver, ((WebDriver) driver).findElement(by));
-//			if (flag) {
-//				flag = ((WebDriver) driver).findElement(by).isEnabled();
-//				if (flag) {
-//					System.out.println("The element is Enabled");
-//				} else {
-//					System.out.println("The element is not Enabled");
-//				}
-//			} else {
-//				System.out.println("Not Enabled ");
-//			}
-//			return flag;
-//		}
+		public boolean isEnabled(By by, WebDriver driver) {
+			boolean flag = false;
+			flag = findElement( by,driver);
+			if (flag) {
+				flag = driver.findElement(by).isEnabled();
+				if (flag) {
+					System.out.println("The element is Enabled");
+				} else {
+					System.out.println("The element is not Enabled");
+				}
+			} else {
+				System.out.println("Not Enabled ");
+			}
+			return flag;
+		}
+		
+		public boolean isEnabled(WebElement ele, WebDriver driver) {
+			boolean flag = false;
+			flag = findElement( ele,driver);
+			if (flag) {
+				flag = ele.isEnabled();
+				if (flag) {
+					System.out.println("The element is Enabled");
+				} else {
+					System.out.println("The element is not Enabled");
+				}
+			} else {
+				System.out.println("Not Enabled ");
+			}
+			return flag;
+		}
 
 		/**
 		 * Type text at location
@@ -157,35 +180,33 @@ import base.TestContext;
 		 */
 		
 		
-		public void type(By by , WebDriver driver, String text) {
-//			boolean flag = false;
-//			try {
-//				flag = true;
-//				//flag = driver.findElement(by).isDisplayed();
-				//Actions act = new Actions(driver);
+		public boolean type(By by , WebDriver driver, String text) {
+			boolean flag = false;
+			flag = findElement(by,driver);
+			try {
+				flag = true;
 				driver.findElement(by).clear();
 				driver.findElement(by).sendKeys(text);
-				// logger.info("Entered text :"+text);
-//				flag = true;
-//			} catch (Exception e) {
-//				System.out.println("Location Not found");
-//				flag = false;
-//			} finally {
-//				if (flag) {
-//					System.out.println("Successfully entered value");
-//				} else {
-//					System.out.println("Unable to enter value");
-//				}
-//
-//			}
-//			return flag;
+				flag = true;
+			} catch (Exception e) {
+				System.out.println("Location Not found");
+				flag = false;
+			} finally {
+				if (flag) {
+					System.out.println("Successfully entered value");
+				} else {
+					System.out.println("Unable to enter value");
+				}
+
+			}
+			return flag;
 		}
 	  
 		
-		public boolean selectBySendkeys(String value,WebElement ele) {
+		public boolean selectBySendkeys(String value,By by) {
 			boolean flag = false;
 			try {
-				ele.sendKeys(value);
+				driver.findElement(by).sendKeys(value);
 				flag = true;
 				return true;
 			} catch (Exception e) {
@@ -792,7 +813,7 @@ import base.TestContext;
 			driver.manage().timeouts().pageLoadTimeout(timeOut, TimeUnit.SECONDS);
 		}
 		
-		public String screenShot(WebDriver driver, String filename) {
+		public void screenShot(WebDriver driver, String filename) {
 			String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 			TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
 			File source = takesScreenshot.getScreenshotAs(OutputType.FILE);
@@ -803,10 +824,10 @@ import base.TestContext;
 			} catch (Exception e) {
 				e.getMessage();
 			}
-			// This new path for jenkins
-			String newImageString = "http://localhost:8082/job/MyStoreProject/ws/MyStoreProject/ScreenShots/" + filename + "_"
-					+ dateName + ".png";
-			return newImageString;
+//			// This new path for jenkins
+//			String newImageString = "http://localhost:8082/job/MyStoreProject/ws/MyStoreProject/ScreenShots/" + filename + "_"
+//					+ dateName + ".png";
+//			return destination;
 		}
 		///redefined with return type bytes
 		public byte[] screenShotAllure(WebDriver driver) {
@@ -819,13 +840,50 @@ import base.TestContext;
 			return currentDate;
 		}
 
-		@Override
-		public String getText(WebElement element) {
+		public String getText(By by, WebDriver driver) {
 		
-			return element.getText();
+			return driver.findElement(by).getText();
+		}
+		
+		public void clear(By by, WebDriver driver) {
+			
+			 driver.findElement(by).clear();
+		}
+		
+
+//		public boolean findElement(WebDriver driver, WebElement ele) {
+//			boolean flag = false;
+//			try {
+//				ele.isDisplayed();
+//				flag = true;
+//			} catch (Exception e) {
+//				// System.out.println("Location not found: "+locatorName);
+//				flag = false;
+//			} finally {
+//				if (flag) {
+//					System.out.println("Successfully Found element at");
+//
+//				} else {
+//					System.out.println("Unable to locate element at");
+//				}
+//			}
+//			return flag;
+//		}
+		public List<WebElement> findElements(By by, WebDriver driver) {
+			List Li = driver.findElements(by);
+			return Li;
+					
+			
+		}
+		
+		public String getPlaceholderAttribute(By by, WebDriver driver) {
+			return driver.findElement(by).getAttribute("placeholder");
 		}
 
-		
+		public void sendkeys(By userFirstNameTextBox, WebDriver driver) {
+			
+			
+		}
 
 		
 
